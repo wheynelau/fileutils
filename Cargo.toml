@@ -1,0 +1,20 @@
+[package]
+name = "fileutils"
+version = "0.1.0"
+edition = "2024"
+description = "Personal file utils"
+license = "MIT"
+repository = "https://github.com/wheynelau/fileutils"
+readme = "README.md"
+keywords = ["jsonl", "zstd", "compression", "io"]
+categories = ["compression", "filesystem"]
+
+[dependencies]
+indicatif = { version = "0.18.4", optional = true }
+serde = { version = "1.0.228", features = ["derive"] }
+zstd = { version = "0.13.3", optional = true, features = ["zstdmt"] }
+
+[features]
+default = ["compression", "progress"]
+compression = ["dep:zstd"]
+progress = ["dep:indicatif"]

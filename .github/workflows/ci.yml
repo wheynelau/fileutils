@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        features:
+          - "--all-features"
+          - "--no-default-features"
+          - "--features compression"
+          - "--features progress"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+      - name: Build
+        run: cargo build ${{ matrix.features }}
+      - name: Test
+        run: cargo test ${{ matrix.features }}
+      - name: Clippy
+        run: cargo clippy ${{ matrix.features }}
+      - name: Format
+        run: cargo fmt --check
