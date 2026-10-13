@@ -1,5 +1,9 @@
 # fileutils
 
+[![CI](https://github.com/wheynelau/fileutils/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/wheynelau/fileutils/actions/workflows/ci.yml)
+[![docs.rs](https://docs.rs/fileutils/badge.svg)](https://docs.rs/fileutils)
+[![crates.io](https://img.shields.io/crates/v/fileutils.svg)](https://crates.io/crates/fileutils)
+
 Personal file utilities for reading and writing `.jsonl`, `.zst`, `.gz` and `.bz2` files.
 
 Reading detects the format from the file's leading magic bytes, so the file name is irrelevant and anything unrecognized is read as plain text.
