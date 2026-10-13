@@ -1,6 +1,6 @@
 [package]
 name = "fileutils"
-version = "0.4.0"
+version = "0.4.1"
 edition = "2024"
 description = "Personal file utils"
 license = "MIT"
@@ -8,6 +8,7 @@ repository = "https://github.com/wheynelau/fileutils"
 readme = "README.md"
 keywords = ["jsonl", "zstd", "compression", "io"]
 categories = ["compression", "filesystem"]
+rust-version = "1.85"
 
 [dependencies]
 bzip2 = { version = "0.6.1", optional = true }
@@ -23,3 +24,16 @@ zstd = ["dep:zstd", "dep:infer"]
 bzip2 = ["dep:bzip2", "dep:infer"]
 flate2 = ["dep:flate2", "dep:infer"]
 progress = ["dep:indicatif"]
+
+[lints.rust]
+warnings = "deny"
+
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+cargo = { level = "warn", priority = -1 }
+multiple_crate_versions = "allow"
+cast_possible_wrap = "allow"
+cast_sign_loss = "allow"
+struct_field_names = "allow"
+undocumented_unsafe_blocks = "warn"
+

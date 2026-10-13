@@ -14,6 +14,7 @@ use indicatif::ProgressBar;
 ///
 /// Returns an error if a decoder fails to initialize, or if compressed data is
 /// detected for a codec that is not compiled in.
+#[allow(clippy::unnecessary_wraps)] // `Result` is fixed by the signature; it can only fail when a codec is compiled in.
 fn decode(reader: Box<dyn io::Read>) -> io::Result<Box<dyn BufRead>> {
     #[cfg(any(feature = "zstd", feature = "bzip2", feature = "flate2"))]
     {

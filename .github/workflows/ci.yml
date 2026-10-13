@@ -33,3 +33,12 @@ jobs:
         run: cargo clippy ${{ matrix.features }}
       - name: Format
         run: cargo fmt --check
+
+  msrv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@1.85.0
+      - uses: Swatinem/rust-cache@v2
+      - name: Check
+        run: cargo check --all-features

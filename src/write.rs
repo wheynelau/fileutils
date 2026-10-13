@@ -6,6 +6,7 @@ use std::path::Path;
 use crate::compression::CompressionConfig;
 
 /// Wrap `writer` in the encoder matching `path`'s extension.
+#[allow(clippy::unnecessary_wraps)] // `Result` is fixed by the signature; it can only fail when a codec is compiled in.
 fn encode(
     path: &Path,
     writer: File,
