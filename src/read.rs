@@ -32,6 +32,13 @@ fn decode<P: AsRef<Path>>(path: P, reader: Box<dyn io::Read>) -> io::Result<Box<
         ))));
     }
 
+    #[cfg(feature = "flate2")]
+    if ext_is("gz") {
+        return Ok(Box::new(BufReader::new(flate2::read::GzDecoder::new(
+            reader,
+        ))));
+    }
+
     if ext_is("jsonl") {
         return Ok(Box::new(BufReader::new(reader)));
     }
