@@ -27,14 +27,14 @@ fn decode<P: AsRef<Path>>(path: P, reader: Box<dyn io::Read>) -> io::Result<Box<
 
     #[cfg(feature = "bzip2")]
     if ext_is("bz2") {
-        return Ok(Box::new(BufReader::new(bzip2::read::BzDecoder::new(
+        return Ok(Box::new(BufReader::new(bzip2::read::MultiBzDecoder::new(
             reader,
         ))));
     }
 
     #[cfg(feature = "flate2")]
     if ext_is("gz") {
-        return Ok(Box::new(BufReader::new(flate2::read::GzDecoder::new(
+        return Ok(Box::new(BufReader::new(flate2::read::MultiGzDecoder::new(
             reader,
         ))));
     }
