@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_call:
 
 jobs:
   check:
@@ -18,10 +19,11 @@ jobs:
           - "--no-default-features --features bzip2"
           - "--no-default-features --features progress"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy, rustfmt
+      - uses: Swatinem/rust-cache@v2
       - name: Check
         run: cargo check ${{ matrix.features }}
       - name: Test
