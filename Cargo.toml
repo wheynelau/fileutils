@@ -1,6 +1,6 @@
 [package]
 name = "fileutils"
-version = "0.1.1"
+version = "0.2.0"
 edition = "2024"
 description = "Personal file utils"
 license = "MIT"
@@ -10,11 +10,13 @@ keywords = ["jsonl", "zstd", "compression", "io"]
 categories = ["compression", "filesystem"]
 
 [dependencies]
-indicatif = { version = "0.18.4", optional = true }
-serde = { version = "1.0.228", features = ["derive"] }
-zstd = { version = "0.13.3", optional = true, features = ["zstdmt"] }
+bzip2 = { version = "0.6.1", optional = true }
+indicatif = { version = "0.18.6", optional = true }
+serde = { version = "1.0.229", features = ["derive"] }
+zstd = { version = "0.14.2", optional = true, features = ["zstdmt"] }
 
 [features]
-default = ["compression", "progress"]
-compression = ["dep:zstd"]
+default = ["zstd", "progress"]
+zstd = ["dep:zstd"]
+bzip2 = ["dep:bzip2"]
 progress = ["dep:indicatif"]

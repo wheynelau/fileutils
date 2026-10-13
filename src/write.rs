@@ -2,14 +2,14 @@ use std::fs::File;
 use std::io::{self, BufWriter, Write};
 use std::path::Path;
 
-#[cfg(feature = "compression")]
+#[cfg(feature = "zstd")]
 use crate::compression::CompressionConfig;
 
 /// # Errors
 ///
 /// Returns an error if the file cannot be created or the zstd encoder fails
 /// to initialize.
-#[cfg(feature = "compression")]
+#[cfg(feature = "zstd")]
 pub fn setup_writer<P: AsRef<Path>>(
     filename: P,
     config: Option<&CompressionConfig>,
@@ -32,7 +32,7 @@ pub fn setup_writer<P: AsRef<Path>>(
 /// # Errors
 ///
 /// Returns an error if the file cannot be created.
-#[cfg(not(feature = "compression"))]
+#[cfg(not(feature = "zstd"))]
 pub fn setup_writer<P: AsRef<Path>>(filename: P) -> io::Result<Box<dyn Write>> {
     let outfile = File::create(filename.as_ref())?;
     Ok(Box::new(BufWriter::new(outfile)))
