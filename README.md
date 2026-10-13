@@ -13,14 +13,14 @@ Personal file utilities for reading and writing `.jsonl`, `.zst`, `.gz` and `.bz
 
 ```toml
 [dependencies]
-fileutils = "0.1"
+fileutils = "0.3"
 ```
 
 Disable default features if you don't need compression or progress:
 
 ```toml
 [dependencies]
-fileutils = { version = "0.1", default-features = false, features = ["zstd"] }
+fileutils = { version = "0.3", default-features = false, features = ["zstd"] }
 ```
 
 ## License
