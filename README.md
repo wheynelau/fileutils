@@ -2,6 +2,8 @@
 
 Personal file utilities for reading and writing `.jsonl`, `.zst`, `.gz` and `.bz2` files.
 
+Reading detects the format from the file's leading magic bytes, so the file name is irrelevant and anything unrecognized is read as plain text.
+
 ## Features
 
 - `zstd` (default) — zstd read/write support via [`zstd`](https://crates.io/crates/zstd)
@@ -13,14 +15,28 @@ Personal file utilities for reading and writing `.jsonl`, `.zst`, `.gz` and `.bz
 
 ```toml
 [dependencies]
-fileutils = "0.3"
+fileutils = "0.4"
 ```
 
 Disable default features if you don't need compression or progress:
 
 ```toml
 [dependencies]
-fileutils = { version = "0.3", default-features = false, features = ["zstd"] }
+fileutils = { version = "0.4", default-features = false, features = ["zstd"] }
+```
+
+## Re-exports
+
+With the `zstd` feature enabled, the types for configuring it are re-exported, so `zstd` does not need to be a direct dependency:
+
+- `fileutils::CompressionConfig` — zstd level and worker count
+- `fileutils::Encoder`, `fileutils::Decoder` — zstd stream types
+
+```rust
+use fileutils::{CompressionConfig, write::setup_writer};
+
+let config = CompressionConfig::new(5, 8);
+let mut writer = setup_writer("out.zst", Some(&config))?;
 ```
 
 ## License

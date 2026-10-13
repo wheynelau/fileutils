@@ -37,6 +37,24 @@ fn encode(
     Ok(Box::new(BufWriter::new(writer)))
 }
 
+/// Create `filename`, encoding by its extension.
+///
+/// Pass a [`CompressionConfig`] to configure the zstd encoder, or `None` for
+/// defaults.
+///
+/// # Examples
+///
+/// ```
+/// use std::io::Write;
+///
+/// let path = std::env::temp_dir().join("fileutils-writer-example.jsonl.zst");
+/// let mut writer = fileutils::write::setup_writer(&path, None).unwrap();
+/// writer.write_all(b"{\"x\":1}\n").unwrap();
+/// drop(writer);
+///
+/// assert!(path.exists());
+/// ```
+///
 /// # Errors
 ///
 /// Returns an error if the file cannot be created or a configured encoder
@@ -50,6 +68,21 @@ pub fn setup_writer<P: AsRef<Path>>(
     encode(path, File::create(path)?, config)
 }
 
+/// Create `filename`, encoding by its extension.
+///
+/// # Examples
+///
+/// ```
+/// use std::io::Write;
+///
+/// let path = std::env::temp_dir().join("fileutils-writer-example.jsonl");
+/// let mut writer = fileutils::write::setup_writer(&path).unwrap();
+/// writer.write_all(b"{\"x\":1}\n").unwrap();
+/// drop(writer);
+///
+/// assert!(path.exists());
+/// ```
+///
 /// # Errors
 ///
 /// Returns an error if the file cannot be created or a configured encoder
